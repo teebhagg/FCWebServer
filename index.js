@@ -11,9 +11,17 @@ app.use(json());
 
 const PORT = 4000;
 
+const posts = []
+db.collection('post').onSnapshot(snapShot=>{
+  snapShot.docs.map(element=>{
+    posts.push(element.data())
+  })
+  // res.status(200).json({ posts })
+})
+
 app.listen(PORT, async () => {
-  console.log("Server Running");
   app.use(router);
+  console.log("Server Running");
   console.log('DB Connected')
   // console.log(((await db.collection('users').get()).docs))
 });
